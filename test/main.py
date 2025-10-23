@@ -4,7 +4,7 @@ import os
 # Add parent directory to path for imports (fallback if relative import fails)
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from KNN import KNN  # Absolute import (works with sys.path)
+from models.knn import KNN  # Absolute import (works with sys.path)
 # from ..KNN import KNN  # Alternative: relative import (requires __init__.py and python -m)
 
 from sklearn.datasets import load_iris

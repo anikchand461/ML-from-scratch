@@ -1,5 +1,8 @@
 import numpy as np
-from KNN import KNN
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from models.knn import KNN  
 
 # Create dummy data
 X_train = np.array([[1, 2], [2, 3], [3, 4], [6, 7]])
