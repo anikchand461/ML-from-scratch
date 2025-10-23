@@ -1,6 +1,8 @@
 # ML-from-scratch
 
 ### to test any model 
+- create a fork
+- clone the repo to your system
 - create virtual environment using 
 ```python
 python -m venv venv
