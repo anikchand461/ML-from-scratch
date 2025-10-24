@@ -1,0 +1,86 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% Defining custom commands for clarity
+\newcommand{\knn}{K-Nearest Neighbors}
+
+\begin{document}
+
+\title{\knn{} Algorithm Explanation}
+\author{}
+\date{October 2025}
+\maketitle
+
+\section{Introduction}
+This document explains the \knn{} algorithm, a simple yet effective classification method. It uses a small example to demonstrate data handling, distance calculation, and prediction.
+
+\section{Algorithm Overview}
+\knn{} classifies a data point based on the majority class of its $k$ nearest neighbors. Distance is typically measured using Euclidean distance.
+
+\section{Example Dataset}
+Consider a dataset with 4 training points:
+\begin{table}[h]
+    \centering
+    \begin{tabular}{ccc}
+        \toprule
+        Feature 1 & Feature 2 & Class \\
+        \midrule
+        1 & 2 & A \\
+        2 & 3 & A \\
+        5 & 6 & B \\
+        6 & 7 & B \\
+        \bottomrule
+    \end{tabular}
+    \caption{Training Data}
+\end{table}
+
+Test point: (3, 4). Let $k = 3$.
+
+\section{Steps and Code Flow}
+\begin{enumerate}
+    \item \textbf{Data Preparation}: Load the dataset into a NumPy array.
+    \item \textbf{Distance Calculation}: Compute Euclidean distance from the test point to each training point.
+    \item \textbf{Nearest Neighbors}: Select the $k$ closest points.
+    \item \textbf{Prediction}: Assign the majority class.
+\end{enumerate}
+
+\subsection{Distance Calculation}
+For test point (3, 4):
+- Distance to (1, 2): $\sqrt{(3-1)^2 + (4-2)^2} = \sqrt{8} \approx 2.83$
+- Distance to (2, 3): $\sqrt{(3-2)^2 + (4-3)^2} = \sqrt{2} \approx 1.41$
+- Distance to (5, 6): $\sqrt{(3-5)^2 + (4-6)^2} = \sqrt{8} \approx 2.83$
+- Distance to (6, 7): $\sqrt{(3-6)^2 + (4-7)^2} = \sqrt{18} \approx 4.24$
+
+\subsection{Nearest Neighbors ($k=3$)}
+Top 3: (2, 3, A), (1, 2, A), (5, 6, B). Majority class: A.
+
+\subsection{Prediction}
+The test point (3, 4) is classified as A.
+
+\section{Code Flow in Python}
+Using NumPy for implementation:
+\begin{verbatim}
+import numpy as np
+
+def knn_predict(train_data, train_labels, test_point, k=3):
+    distances = np.sqrt(np.sum((train_data - test_point) ** 2, axis=1))
+    nearest_indices = np.argsort(distances)[:k]
+    nearest_labels = train_labels[nearest_indices]
+    return np.bincount(nearest_labels).argmax()
+
+# Example usage
+train_data = np.array([[1, 2], [2, 3], [5, 6], [6, 7]])
+train_labels = np.array([0, 0, 1, 1])  # A=0, B=1
+test_point = np.array([3, 4])
+prediction = knn_predict(train_data, train_labels, test_point, k=3)
+print("Predicted class:", prediction)
+\end{verbatim}
+
+\section{Conclusion}
+This example demonstrates how \knn{} works with a small dataset, from distance computation to final prediction.
+
+\end{document}
